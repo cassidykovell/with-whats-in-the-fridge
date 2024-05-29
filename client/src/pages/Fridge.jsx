@@ -1,7 +1,12 @@
 import React from 'react';
+import Fridge from '../components/FridgeSection';
 
-const Fridge = () => {
-  return <h1>Fridge</h1>;
+const LandingPage = () => {
+  return (
+    <div>
+      <Fridge/>
+    </div>
+  );
 };
 
 export default Fridge;
