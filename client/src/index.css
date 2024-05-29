@@ -235,3 +235,28 @@ a {
   border-radius: 20px;
   padding: 2rem ;
 }
+
+.center {
+  text-align: center;
+}
+
+.fridge-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.ingredients-list {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.recipes-section {
+  margin-top: 20px;
+}
