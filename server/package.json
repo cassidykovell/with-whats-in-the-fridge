@@ -1,0 +1,25 @@
+{
+    "name": "my-recipe-app-server",
+    "version": "1.0.0",
+    "description": "Backend server stuff!!!",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js"
+    },
+    "keywords": [
+      "recipe",
+      "graphql",
+      "server"
+    ],
+    "author": " ",
+    "license": "ISC",
+    "dependencies": {
+      "apollo-server-express": "^3.8.0",
+      "bcryptjs": "^2.4.3",
+      "cors": "^2.8.5",
+      "dotenv": "^10.0.0",
+      "express": "^4.17.1",
+      "mongoose": "^6.0.13"
+    }
+  }
+  
