@@ -26,9 +26,9 @@ const Landing = () => {
         ></div>
       ))}
       <div className="overlay">
-        <h1 className="title">Your Placeholder Title</h1>
+        <h1 className="title"> </h1>
         <p className="description">
-          Your placeholder text for the description. This is where you can describe your product or service.
+         
         </p>
         <a
           href="/products"

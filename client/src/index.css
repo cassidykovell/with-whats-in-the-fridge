@@ -2,7 +2,8 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: rgb(255, 90, 7);
+  background-color: rgb(166, 135, 79);
+
 }
 
 * {
@@ -12,20 +13,11 @@ body {
   font-style: normal;
 }
 
-.layout {
-  border: 1.5em solid rgb(255, 90, 7);
-  border-top: none;
-  height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(255, 90, 7);
+  background-color: rgb(166, 135, 79);
 }
 
 .navbar {
@@ -35,12 +27,12 @@ body {
 }
 
 .navbar a {
-  color: rgb(255, 218, 169);
+  color: rgb( 242, 222, 204);
   text-decoration: none;
 }
 
 .navbar a:visited {
-  color: rgb(255, 218, 169);
+   color: rgb( 242, 222, 204);
 }
 
 .navbar a:hover {
@@ -59,7 +51,7 @@ a {
 }
 
 #header-title {
-  color: rgb(255, 218, 169);
+   color: rgb( 242, 222, 204);
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
@@ -75,11 +67,11 @@ a {
 
 #header-title a {
   text-decoration: none;
-  color: rgb(255, 218, 169);
+   color: rgb( 242, 222, 204);
 }
 
 #header-title a:visited {
-  color: rgb(255, 218, 169);
+   color: rgb( 242, 222, 204);
 }
 
 #content {
@@ -96,7 +88,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255, 90, 7);
+  background-color: rgb(166, 135, 79);
   border-radius: 20px;
 }
 
@@ -127,7 +119,7 @@ a {
 }
 
 #title {
-  color: rgb(255, 218, 169);
+   color: rgb( 242, 222, 204);
   font-size: 4rem;
   font-weight: 800;
   margin-top: 0;
@@ -162,12 +154,11 @@ a {
   width: 100%;
   height: 90vh;
   overflow: hidden;
-  background-color: rgb(255, 218, 169);
+  background-color: rgb(250, 247, 237);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 20px;
   padding: 2rem ;
 }
 
@@ -187,17 +178,17 @@ a {
 
 .profile-header .create-recipe-button {
   padding: 0.5rem 1rem;
-  background-color: rgb(255, 90, 7);
-  color: rgb(255, 218, 169);
-  border: 1px solid rgb(255, 218, 169);
+  background-color: rgb(166, 135, 79);
+  color: rgb( 242, 222, 204);
+  border: 1px solid rgb( 242, 222, 204);
   border-radius: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .profile-header .create-recipe-button:hover {
-  background-color: rgb(255, 218, 169);
-  color: rgb(255, 90, 7);
+  background-color: rgb( 242, 222, 204);
+  color:  rgb(166, 135, 79);
 }
 
 .profile-tabs {
@@ -210,8 +201,8 @@ a {
 .profile-tabs .tab-button {
   padding: 0.5rem 1rem;
   border: none;
-  background-color: #333;
-  color: white;
+  background-color:rgb(250, 247, 237);
+  color: rgb(166, 135, 79);
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-top-left-radius: 10px;
@@ -220,24 +211,24 @@ a {
 }
 
 .profile-tabs .tab-button.active {
-  background-color: #555;
-  border-bottom: 2px solid rgb(255, 218, 169);
+  background-color: rgb(250, 247, 237);
+  font-size: 1.5em;
 }
 
 .profile-tabs .tab-button:hover {
-  background-color: #555;
+  background-color: rgb(213, 197, 161);
+  color:rgb(250, 247, 237);
 }
 
 .profile-content {
   width: 100%;
-  background-color: white;
   border-radius: 20px;
   padding: 1rem;
 }
 
 .profile-content .profile-section {
   font-size: 1.2rem;
-  color: #333;
+  color: rgb(213, 197, 161);
 }
 
 .sign-container {
@@ -245,7 +236,7 @@ a {
   width: 100%;
   height: 90vh;
   overflow: hidden;
-  background-color: rgb(255, 218, 169);
+  background-color: #fecfcedf;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -280,7 +271,7 @@ a {
 }
 
 .feed-container {
-  background-color: rgb(247, 232, 213);
+  background-color: rgb(250, 247, 237);
   min-height: 100vh; 
   margin: 0;
   padding: 0;

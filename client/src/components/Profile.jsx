@@ -5,9 +5,9 @@ const MyProfile = () => {
 
   const renderSection = () => {
     if (activeSection === "saved") {
-      return <div className="profile-section">Saved Recipes Section</div>;
+      return <div className="profile-section">My Saved Recipes</div>;
     } else if (activeSection === "created") {
-      return <div className="profile-section">Created Recipes Section</div>;
+      return <div className="profile-section"> My Created Recipes</div>;
     }
   };
 
