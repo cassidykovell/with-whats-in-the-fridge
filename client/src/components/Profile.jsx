@@ -14,7 +14,7 @@ const MyProfile = () => {
   return (
     <div>
       <div className="profile-header">
-        <h1 className="title">My Profile</h1>
+        <h1 id="title">My Profile</h1>
         <button className="create-recipe-button">Create Recipe</button>
       </div>
       <div className="profile-tabs">

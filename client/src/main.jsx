@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import LandingPage from './pages/LandingPage';
 import MyProfile from './pages/MyProfile';
-import SignUp from './pages/SignUp';
+import LogIn from './pages/LogIn';
 import Fridge from './pages/Fridge';
+import FeedPage from './pages/FeedPage';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,16 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
+        path: 'feed',
+        element: <FeedPage />,
+      },
+      {
         path: 'profile',
         element: <MyProfile />,
       },
       {
-        path: 'signup',
-        element: <SignUp />,
+        path: 'login',
+        element: <LogIn />,
       },
       {
         path: 'fridge',

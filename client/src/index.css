@@ -53,21 +53,32 @@ body {
 
 a {
   padding: 0em 1em 0em 1em;
+  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: 3;
 }
-.header-title {
+
+#header-title {
   color: rgb(255, 218, 169);
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
+  text-decoration: none;
+  letter-spacing: -1px; 
+  line-height: 1; 
+  font-size: 3em;
+  line-height: 1.5; 
+  transform: skew(-10deg); 
+  text-transform: uppercase;
 }
 
-.header-title a {
+#header-title a {
   text-decoration: none;
   color: rgb(255, 218, 169);
 }
 
-.header-title a:visited {
+#header-title a:visited {
   color: rgb(255, 218, 169);
 }
 
@@ -90,6 +101,7 @@ a {
 }
 
 .slide {
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
@@ -114,11 +126,16 @@ a {
   color: white;
 }
 
-.title {
-  font-size: 3rem;
-  font-weight: bold;
+#title {
+  color: rgb(255, 218, 169);
+  font-size: 4rem;
+  font-weight: 800;
+  margin-top: 0;
   margin-bottom: 1rem;
   margin-left: 1.2rem;
+  letter-spacing: -1px; 
+  line-height: 1.5; 
+
 }
 
 .description {
@@ -170,16 +187,17 @@ a {
 
 .profile-header .create-recipe-button {
   padding: 0.5rem 1rem;
-  background-color: #333;
-  color: white;
-  border: none;
+  background-color: rgb(255, 90, 7);
+  color: rgb(255, 218, 169);
+  border: 1px solid rgb(255, 218, 169);
   border-radius: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .profile-header .create-recipe-button:hover {
-  background-color: #555;
+  background-color: rgb(255, 218, 169);
+  color: rgb(255, 90, 7);
 }
 
 .profile-tabs {
@@ -259,4 +277,11 @@ a {
 
 .recipes-section {
   margin-top: 20px;
+}
+
+.feed-container {
+  background-color: rgb(247, 232, 213);
+  min-height: 100vh; 
+  margin: 0;
+  padding: 0;
 }
