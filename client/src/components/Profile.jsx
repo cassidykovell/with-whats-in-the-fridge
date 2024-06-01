@@ -1,15 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { useQuery, gql } from '@apollo/client';
 
-const MyProfile = () => {
+const GET_USER_PROFILE = gql`
+  query getUserProfile($userId: ID!) {
+    getUserProfile(userId: $userId) {
+      user {
+        id
+        username
+        email
+      }
+      createdRecipes {
+        id
+        title
+        ingredients
+        instructions
+        image
+      }
+      savedRecipes {
+        id
+        title
+        ingredients
+        instructions
+        image
+      }
+    }
+  }
+`;
+
+const Profile = ({ userId }) => {
+  const { loading, error, data } = useQuery(GET_USER_PROFILE, { variables: { userId } });
+  const [profile, setProfile] = useState(null);
   const [activeSection, setActiveSection] = useState("saved");
 
+  useEffect(() => {
+    if (data) {
+      setProfile(data.getUserProfile);
+    }
+  }, [data]);
+
   const renderSection = () => {
-    if (activeSection === "saved") {
-      return <div className="profile-section">My Saved Recipes</div>;
-    } else if (activeSection === "created") {
-      return <div className="profile-section"> My Created Recipes</div>;
+    if (activeSection === "saved" && profile) {
+      return profile.savedRecipes.map(recipe => (
+        <div key={recipe.id} className="recipe-card">
+          <h3>{recipe.title}</h3>
+          <img src={recipe.image} alt={recipe.title} />
+          <p>{recipe.instructions}</p>
+          <ul>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+      ));
+    } else if (activeSection === "created" && profile) {
+      return profile.createdRecipes.map(recipe => (
+        <div key={recipe.id} className="recipe-card">
+          <h3>{recipe.title}</h3>
+          <img src={recipe.image} alt={recipe.title} />
+          <p>{recipe.instructions}</p>
+          <ul>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+      ));
     }
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading profile</p>;
 
   return (
     <div>
@@ -25,9 +85,7 @@ const MyProfile = () => {
           Saved Recipes
         </button>
         <button
-          className={`tab-button ${
-            activeSection === "created" ? "active" : ""
-          }`}
+          className={`tab-button ${activeSection === "created" ? "active" : ""}`}
           onClick={() => setActiveSection("created")}
         >
           Created Recipes
@@ -40,4 +98,5 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default Profile;
+

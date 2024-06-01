@@ -2,6 +2,8 @@ const { gql } = require('apollo-server-express');
 const userTypeDefs = require('./user');
 const recipeTypeDefs = require('./recipe');
 const ingredientsTypeDefs = require('./ingredients');
+const feedTypeDefs = require('./feed');
+const profileTypeDefs = require('./profile')
 
 const baseTypeDefs = gql`
   type Query {
@@ -13,6 +15,6 @@ const baseTypeDefs = gql`
   }
 `;
 
-const typeDefs = [baseTypeDefs, userTypeDefs, recipeTypeDefs, ingredientsTypeDefs];
+const typeDefs = [baseTypeDefs, userTypeDefs, recipeTypeDefs, ingredientsTypeDefs, feedTypeDefs, profileTypeDefs];
 
 module.exports = typeDefs;

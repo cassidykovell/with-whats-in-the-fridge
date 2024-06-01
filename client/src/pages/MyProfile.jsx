@@ -1,12 +1,15 @@
 import React from 'react';
 import Profile from '../components/Profile';
 
-const MyProfile = () => {
+const MyProfilePage = () => {
+  //EXAMPLE USER TO POPULATE FEEDPAGE
+  const userId = '60c72b2f9b1d8b23d8efc1b1'; 
+
   return (
     <div>
-      <Profile />
+      <Profile userId={userId} />
     </div>
   );
 };
 
-export default MyProfile;
+export default MyProfilePage;
