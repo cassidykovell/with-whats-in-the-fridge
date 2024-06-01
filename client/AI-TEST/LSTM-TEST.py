@@ -40,39 +40,48 @@ sequences = tokenizer.texts_to_sequences(texts)
 max_sequence_len = max([len(seq) for seq in sequences])
 padded_sequences = pad_sequences(sequences, maxlen=max_sequence_len, padding='post')
 
-
 embedding_dim = 100
-
 
 model = tf.keras.Sequential([
     Embedding(input_dim=vocab_size, output_dim=embedding_dim, input_length=max_sequence_len),
     LSTM(128, return_sequences=True),
-    Dropout(0.2),  
+    Dropout(0.2),
     LSTM(128),
-    Dropout(0.2), 
+    Dropout(0.2),
     Dense(vocab_size, activation='softmax')
 ])
 
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam')
 
-X_train, X_val, _, _ = train_test_split(padded_sequences, padded_sequences, test_size=0.2, random_state=42)
-X_train_target = np.roll(X_train[:, 1:], -1, axis=1)
-X_val_target = np.roll(X_val[:, 1:], -1, axis=1)
+X = padded_sequences[:, :-1]
+y = padded_sequences[:, 1:]
 
-model.fit(X_train, X_train_target, epochs=50, batch_size=32, validation_data=(X_val, X_val_target))
+y = np.expand_dims(y, axis=-1)
+
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_val, y_val))
 
 def generate_recipe(ingredients):
     generated_instructions = []
     for ingredient in ingredients:
         ingredient_seq = tokenizer.texts_to_sequences([ingredient])
         padded_seq = pad_sequences(ingredient_seq, maxlen=max_sequence_len, padding='post')
-        generated_idx = np.argmax(model.predict(padded_seq), axis=-1)
-        generated_word = tokenizer.index_word[generated_idx[0]]
-        generated_instructions.append(generated_word)
+        predicted_seq = []
+        for _ in range(max_sequence_len):
+            predictions = model.predict(padded_seq)
+            predicted_word_idx = np.argmax(predictions[0], axis=-1)
+            predicted_word = tokenizer.index_word.get(predicted_word_idx[-1], '')
+            predicted_seq.append(predicted_word)
+            padded_seq = np.roll(padded_seq, -1)
+            padded_seq[0, -1] = predicted_word_idx[-1]
+            if predicted_word == '':
+                break
+        generated_instructions.append(' '.join(predicted_seq))
     return generated_instructions
 
 # TESTING SCRIPT
 user_input = input("Enter random ingredients separated by commas: ").split(',')
 generated_instructions = generate_recipe(user_input)
 print("Generated Recipe Instructions:")
-print(' '.join(generated_instructions))
+print('\n'.join(generated_instructions))
