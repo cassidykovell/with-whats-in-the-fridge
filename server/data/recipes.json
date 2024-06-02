@@ -1,0 +1,31 @@
+[
+    {
+      "_id": { "$oid": "60c72b319b1d8b23d8efc1b2" },
+      "title": "Spaghetti Carbonara",
+      "ingredients": ["Spaghetti", "Eggs", "Parmesan Cheese", "Pancetta", "Black Pepper"],
+      "instructions": "Boil the spaghetti. Fry the pancetta. Mix eggs and cheese. Combine all with pasta.",
+      "createdBy": { "$oid": "60c72b2f9b1d8b23d8efc1b1" }
+    },
+    {
+      "_id": { "$oid": "60c72b359b1d8b23d8efc1b3" },
+      "title": "Chicken Alfredo",
+      "ingredients": ["Fettuccine", "Chicken Breast", "Heavy Cream", "Parmesan Cheese", "Garlic", "Butter"],
+      "instructions": "Cook the pasta. Cook the chicken. Make the sauce. Combine all with pasta.",
+      "createdBy": { "$oid": "60c72b2f9b1d8b23d8efc1b1" }
+    },
+    {
+      "_id": { "$oid": "60c72b459b1d8b23d8efc1b5" },
+      "title": "Beef Tacos",
+      "ingredients": ["Ground Beef", "Taco Shells", "Lettuce", "Tomato", "Cheese", "Sour Cream"],
+      "instructions": "Cook the beef. Prepare the toppings. Assemble the tacos.",
+      "createdBy": { "$oid": "60c72b409b1d8b23d8efc1b4" }
+    },
+    {
+      "_id": { "$oid": "60c72b589b1d8b23d8efc1b6" },
+      "title": "Grilled Cheese Sandwich",
+      "ingredients": ["Bread", "Cheddar Cheese", "Butter"],
+      "instructions": "Butter the bread. Place cheese between slices. Grill until golden brown.",
+      "createdBy": { "$oid": "60c72b2f9b1d8b23d8efc1b1" }
+    }
+  ]
+  

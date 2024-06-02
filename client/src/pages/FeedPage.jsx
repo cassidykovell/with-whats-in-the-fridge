@@ -4,7 +4,7 @@ import Feed from '../components/Feed';
 const FeedPage = () => {
   return (
     <div>
-      <Feed/>
+      <Feed />
     </div>
   );
 };
