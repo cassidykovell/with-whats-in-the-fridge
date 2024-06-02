@@ -23,15 +23,17 @@ const Fridge = () => {
 
   return (
     <div className="fridge-container">
-      <h1 className="center">What's in the fridge</h1>
+      <h1 id="center">What's in the fridge?</h1>
       <input
+      id="ingred"
         type="text"
         value={inputValue}
         onChange={handleInputChange}
         placeholder="Enter an ingredient"
       />
-      <button onClick={handleAddIngredient}>Add</button>
-
+      <div id="btn">
+      <button onClick={handleAddIngredient} id="add">Add</button>
+      </div>
       <div className="ingredients-list">
         {ingredients.map((ingredient, index) => (
           <div key={index} className="ingredient-item">

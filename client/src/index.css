@@ -3,7 +3,6 @@ body {
   padding: 0;
   height: 100%;
   background-color: rgb(166, 135, 79);
-
 }
 
 * {
@@ -27,12 +26,12 @@ body {
 }
 
 .navbar a {
-  color: rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
   text-decoration: none;
 }
 
 .navbar a:visited {
-   color: rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
 }
 
 .navbar a:hover {
@@ -51,27 +50,27 @@ a {
 }
 
 #header-title {
-   color: rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
   text-decoration: none;
-  letter-spacing: -1px; 
-  line-height: 1; 
+  letter-spacing: -1px;
+  line-height: 1;
   font-size: 3em;
-  line-height: 1.5; 
-  transform: skew(-10deg); 
+  line-height: 1.5;
+  transform: skew(-10deg);
   text-transform: uppercase;
 }
 
 #header-title a {
   text-decoration: none;
-   color: rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
 }
 
 #header-title a:visited {
-   color: rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
 }
 
 #content {
@@ -82,7 +81,7 @@ a {
 
 .landing-container {
   position: relative;
-  width: 100%;
+  width: 97%;
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -90,6 +89,7 @@ a {
   justify-content: center;
   background-color: rgb(166, 135, 79);
   border-radius: 20px;
+  margin: 1em;
 }
 
 .slide {
@@ -119,15 +119,14 @@ a {
 }
 
 #title {
-   color: rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
   font-size: 4rem;
   font-weight: 800;
   margin-top: 0;
   margin-bottom: 1rem;
   margin-left: 1.2rem;
-  letter-spacing: -1px; 
-  line-height: 1.5; 
-
+  letter-spacing: -1px;
+  line-height: 1.5;
 }
 
 .description {
@@ -159,9 +158,8 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem ;
+  padding: 2rem;
 }
-
 
 .profile-header {
   display: flex;
@@ -179,16 +177,16 @@ a {
 .profile-header .create-recipe-button {
   padding: 0.5rem 1rem;
   background-color: rgb(166, 135, 79);
-  color: rgb( 242, 222, 204);
-  border: 1px solid rgb( 242, 222, 204);
+  color: rgb(242, 222, 204);
+  border: 1px solid rgb(242, 222, 204);
   border-radius: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .profile-header .create-recipe-button:hover {
-  background-color: rgb( 242, 222, 204);
-  color:  rgb(166, 135, 79);
+  background-color: rgb(242, 222, 204);
+  color: rgb(166, 135, 79);
 }
 
 .profile-tabs {
@@ -201,7 +199,7 @@ a {
 .profile-tabs .tab-button {
   padding: 0.5rem 1rem;
   border: none;
-  background-color:rgb(250, 247, 237);
+  background-color: rgb(250, 247, 237);
   color: rgb(166, 135, 79);
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -217,7 +215,7 @@ a {
 
 .profile-tabs .tab-button:hover {
   background-color: rgb(213, 197, 161);
-  color:rgb(250, 247, 237);
+  color: rgb(213, 197, 161);
 }
 
 .profile-content {
@@ -236,22 +234,120 @@ a {
   width: 100%;
   height: 90vh;
   overflow: hidden;
-  background-color: #fecfcedf;
+  background-color: rgb(250, 247, 237);
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  border-radius: 20px;
-  padding: 2rem ;
+  padding: 2rem;
 }
 
-.center {
-  text-align: center;
+#log-head {
+  color: rgb(166, 135, 79);
+  font-size: 3em;
 }
+
+#sign-head {
+  color: rgb(166, 135, 79);
+  font-size: 3em;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(213, 197, 161);
+  padding: 5em;
+  border-radius: 15px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(213, 197, 161);
+  padding: 7.5em 5em 7.5em 5em;
+  border-radius: 15px;
+}
+
+.input {
+  padding: 0.5em 1em 0.5em 1em;
+  margin: 1em;
+  border-radius: 15px;
+  border: 5px solid rgb(242, 222, 204);
+  font-size: 1em;
+  color: rgb(166, 135, 79);
+}
+
+#log-btn {
+  font-size: 1em;
+  padding: 0.4em 2em 0.4em 2em;
+  border-radius: 15px;
+  border: 2px solid rgb(166, 135, 79);
+  background-color: rgb(213, 197, 161);
+  color: rgb(166, 135, 79);
+}
+
+#log-btn:hover {
+  background-color: rgb(166, 135, 79);
+  color: rgb(213, 197, 161);
+}
+
+#sign-btn {
+  font-size: 1em;
+  padding: 0.4em 2em 0.4em 2em;
+  border-radius: 15px;
+  border: 2px solid rgb(166, 135, 79);
+  background-color: rgb(213, 197, 161);
+  color: rgb(166, 135, 79);
+}
+
+#sign-btn:hover {
+  background-color: rgb(166, 135, 79);
+  color: rgb(213, 197, 161);
+}
+
+#center {
+  text-align: center;
+  color: rgb(242, 222, 204);
+  font-size: 3em;
+}
+
+#ingred {
+  border: 3px solid rgb(213, 197, 161);
+  padding: 0.5em;
+  margin: 0em 5em 0em 5em;
+  border-radius: 20px;
+  font-size: 1em;
+}
+
+#btn {
+  display: flex;
+  justify-content: center;
+}
+
+#add {
+  margin: 1em;
+  padding: 0.5em 3em .5em 3em;
+  border: 2px solid rgb(242, 222, 204);
+  border-radius: 20px;
+  background-color: rgb(166, 135, 79);
+  color: rgb(242, 222, 204);
+}
+
+#add:hover {
+  background-color: rgb(242, 222, 204);
+  color: rgb(166, 135, 79);
+}
+
+
 
 .fridge-container {
-  max-width: 400px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ingredients-list {
@@ -272,7 +368,7 @@ a {
 
 .feed-container {
   background-color: rgb(250, 247, 237);
-  min-height: 100vh; 
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
