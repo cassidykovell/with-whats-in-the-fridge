@@ -30,12 +30,12 @@ const Landing = () => {
         <p className="description">
          
         </p>
-        <a
-          href="/products"
+        {/* <a
+          href="/feed"
           className="btn-main"
         >
           Add Boldly To Your Menu
-        </a>
+        </a> */}
       </div>
     </div>
   );
