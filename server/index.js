@@ -1,3 +1,7 @@
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const typeDefs = require('./typeDefs/schema');
 const resolvers = require('./resolvers');
 const authRoutes = require('./routes/auth');
@@ -24,9 +28,10 @@ async function startServer() {
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
-  app.listen({ port: process.env.PORT || 4000 }, () =>
-    console.log(`Server running on http://localhost:${process.env.PORT || 4000}${server.graphqlPath}`)
+  app.listen({ port: process.env.PORT || 3001 }, () =>
+    console.log(`Server running on http://localhost:${process.env.PORT || 3001}${server.graphqlPath}`)
   );
 }
 
 startServer();
+

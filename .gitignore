@@ -1,3 +1,5 @@
 node_modules
 .env
 myenv
+newenv
+package-lock.json

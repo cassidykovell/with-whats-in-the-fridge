@@ -1,11 +1,14 @@
+
 const mongoose = require('mongoose');
 
-const RecipeSchema = new mongoose.Schema({
+const { Schema } = mongoose;
+
+const RecipeSchema = new Schema({
   title: { type: String, required: true },
   ingredients: [String],
   instructions: String,
   image: String,
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now }
 });
 
