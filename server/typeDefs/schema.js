@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     recipes: [Recipe]
+    savedRecipes: [Recipe]
   }
 
   type Recipe {
@@ -15,6 +16,7 @@ const typeDefs = gql`
     instructions: String!
     image: String
     createdBy: User
+    createdAt: String
   }
 
   type Ingredient {
@@ -23,9 +25,19 @@ const typeDefs = gql`
     image: String
   }
 
+  type UserProfile {
+    user: User!
+    createdRecipes: [Recipe]
+    savedRecipes: [Recipe]
+  }
+
   type Query {
+    getUser(userId: ID!): User
     getUserRecipes(userId: ID!): [Recipe]
+    getAllUserCreatedRecipes: [Recipe]
+    getRecipe(recipeId: ID!): Recipe
     getIngredients(query: String!): [Ingredient]
+    getUserProfile(userId: ID!): UserProfile
   }
 
   type Mutation {

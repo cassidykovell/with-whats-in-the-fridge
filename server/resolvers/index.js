@@ -1,7 +1,7 @@
 const userResolvers = require('./user');
 const recipeResolvers = require('./recipe');
 const ingredientsResolvers = require('./ingredients');
-const feedResolvers = require('./feed');
+const feedResolvers = require('./feedPage');
 const profileResolvers = require('./profile');
 
 const resolvers = {
