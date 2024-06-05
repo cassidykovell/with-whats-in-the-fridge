@@ -6,9 +6,10 @@ import './index.css';
 import App from './App';
 import LandingPage from './pages/LandingPage';
 import MyProfile from './pages/MyProfile';
-import LogIn from './pages/LogIn';
+import Authentication from './pages/Authentication';
 import Fridge from './pages/Fridge';
 import FeedPage from './pages/FeedPage';
+
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <LogIn />,
+        element: <Authentication />,
       },
       {
         path: 'fridge',
