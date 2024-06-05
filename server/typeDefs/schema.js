@@ -14,7 +14,6 @@ const typeDefs = gql`
     title: String!
     ingredients: [String!]!
     instructions: String!
-    image: String
     createdBy: User
     createdAt: String
   }
@@ -22,7 +21,6 @@ const typeDefs = gql`
   type Ingredient {
     id: ID!
     name: String!
-    image: String
   }
 
   type UserProfile {
@@ -43,7 +41,7 @@ const typeDefs = gql`
   type Mutation {
     register(username: String!, email: String!, password: String!): User
     login(email: String!, password: String!): String
-    createRecipe(userId: ID!, title: String!, ingredients: [String!]!, instructions: String!, image: String): Recipe
+    createRecipe(userId: ID!, title: String!, ingredients: [String!]!, instructions: String!): Recipe
   }
 `;
 

@@ -3,13 +3,13 @@ import { useQuery, gql } from '@apollo/client';
 
 const GET_RECIPES = gql`
   query GetRecipes {
-    recipes {
+    getAllUserCreatedRecipes {
       _id
       title
       description
       ingredients
       instructions
-      author {
+      createdBy {
         username
       }
     }
@@ -26,18 +26,27 @@ const Feed = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.recipes) {
+  if (!data || !data.getAllUserCreatedRecipes) {
     console.error('No recipes found:', data);
     return <p>No recipes found.</p>;
   }
 
   return (
     <div className="feed-container">
-      {data.recipes.map(recipe => (
-        <div key={recipe._id} className="recipe-card" style={{ border: '1px solid #ccc', margin: '10px', padding: '10px', cursor: 'pointer' }} onClick={() => setExpandedRecipeId(expandedRecipeId === recipe._id ? null : recipe._id)}>
+      {data.getAllUserCreatedRecipes.map(recipe => (
+        <div 
+          key={recipe._id} 
+          className="recipe-card" 
+          style={{ border: '1px solid #ccc', margin: '10px', padding: '10px', cursor: 'pointer' }} 
+          onClick={() => setExpandedRecipeId(expandedRecipeId === recipe._id ? null : recipe._id)}
+        >
           <h3>{recipe.title}</h3>
           <p>{recipe.description}</p>
-          {recipe.author?.username ? <p><strong>Author: </strong>{recipe.author.username}</p> : <p><strong>Author: </strong>Unknown</p>}
+          {recipe.createdBy?.username ? (
+            <p><strong>Author: </strong>{recipe.createdBy.username}</p>
+          ) : (
+            <p><strong>Author: </strong>Unknown</p>
+          )}
           {expandedRecipeId === recipe._id && (
             <>
               <p><strong>Instructions:</strong> {recipe.instructions}</p>
