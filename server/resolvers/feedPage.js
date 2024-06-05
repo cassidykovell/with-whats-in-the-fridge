@@ -4,7 +4,7 @@ const feedResolvers = {
   Query: {
     getAllUserCreatedRecipes: async () => {
       try {
-        return await Recipe.find({});
+        return await Recipe.find({}).populate('createdBy', 'username'); 
       } catch (error) {
         console.error('Error fetching all user-created recipes:', error);
         throw new Error('Failed to fetch all user-created recipes');
@@ -14,4 +14,3 @@ const feedResolvers = {
 };
 
 module.exports = feedResolvers;
-

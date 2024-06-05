@@ -13,7 +13,6 @@ const recipeResolvers = {
         title,
         ingredients,
         instructions,
-        image,
         createdBy: userId,
       });
 
