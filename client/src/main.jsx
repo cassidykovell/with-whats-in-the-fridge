@@ -11,7 +11,7 @@ import Fridge from './pages/Fridge';
 import FeedPage from './pages/FeedPage';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {

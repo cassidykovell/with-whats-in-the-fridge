@@ -1,26 +1,25 @@
-
 {
-    "name": "my-recipe-app-server",
-    "version": "1.0.0",
-    "description": "Backend server stuff!!!",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js"
-    },
-    "keywords": [
-        "recipe",
-        "graphql",
-        "server"
-    ],
-    "author": " ",
-    "license": "ISC",
-    "dependencies": {
-        "apollo-server-express": "^3.8.0",
-        "bcryptjs": "^2.4.3",
-        "cors": "^2.8.5",
-        "dotenv": "^10.0.0",
-        "express": "^4.17.1",
-        "jsonwebtoken": "^9.0.2",
-        "mongoose": "^6.0.13"
-    }
+  "name": "recipe-app",
+  "version": "1.0.0",
+  "description": "A recipe application with user profiles and recipe management",
+  "main": "server.js",
+  "scripts": {
+      "start": "node server.js",
+      "seed": "node seeds/seed.js",
+      "dev": "nodemon server.js"
+  },
+  "dependencies": {
+      "apollo-server-express": "^3.0.0",
+      "bcryptjs": "^2.4.3",
+      "dotenv": "^16.4.5",
+      "express": "^4.17.1",
+      "graphql": "^15.5.0",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.12.3"
+  },
+  "devDependencies": {
+      "nodemon": "^2.0.7"
+  },
+  "author": "",
+  "license": "ISC"
 }

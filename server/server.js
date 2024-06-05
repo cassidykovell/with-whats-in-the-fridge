@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -34,8 +33,8 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-const ingredientRoutes = require('./routes/ingredientRoutes');
-app.use('/api/ingredients', ingredientRoutes);
+// const ingredientRoutes = require('./routes/ingredientRoutes');
+// app.use('/api/ingredients', ingredientRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
