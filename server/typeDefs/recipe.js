@@ -6,7 +6,6 @@ type Recipe {
   title: String!
   ingredients: [String!]!
   instructions: String!
-  image: String
   createdBy: User
   createdAt: String
 }
