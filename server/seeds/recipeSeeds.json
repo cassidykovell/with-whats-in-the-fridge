@@ -10,7 +10,7 @@
         "pepper"
       ],
       "instructions": "Cook spaghetti. Mix eggs and cheese. Cook pancetta. Combine all ingredients.",
-      "author": "john_doe"
+      "username": "john_doe"
     },
     {
       "title": "Chicken Curry",
@@ -23,7 +23,7 @@
         "garlic"
       ],
       "instructions": "Cook chicken. Add spices and coconut milk. Simmer until done.",
-      "author": "jane_smith"
+      "username": "jane_smith"
     },
     {
       "title": "Beef Tacos",
@@ -37,7 +37,7 @@
         "cheese"
       ],
       "instructions": "Cook beef with seasoning. Serve in tortillas with toppings.",
-      "author": "bob_jones"
+      "username": "bob_jones"
     },
     {
       "title": "Veggie Stir-Fry",
@@ -50,14 +50,14 @@
         "garlic"
       ],
       "instructions": "Stir-fry vegetables with garlic and soy sauce.",
-      "author": "alice_williams"
+      "username": "alice_williams"
     },
     {
       "title": "Pancakes",
       "description": "Fluffy pancakes for a perfect breakfast",
       "ingredients": ["flour", "milk", "eggs", "baking powder", "sugar"],
       "instructions": "Mix ingredients. Cook on a griddle until golden brown.",
-      "author": "mike_brown"
+      "username": "mike_brown"
     },
     {
       "title": "Caesar Salad",
@@ -69,14 +69,14 @@
         "parmesan cheese"
       ],
       "instructions": "Toss lettuce with dressing, croutons, and cheese.",
-      "author": "lisa_clark"
+      "username": "lisa_clark"
     },
     {
       "title": "Grilled Cheese Sandwich",
       "description": "Classic grilled cheese sandwich",
       "ingredients": ["bread", "cheese", "butter"],
       "instructions": "Assemble sandwich with cheese between bread slices. Grill until golden brown.",
-      "author": "tom_davis"
+      "username": "tom_davis"
     },
     {
       "title": "Beef Stroganoff",
@@ -90,7 +90,7 @@
         "paprika"
       ],
       "instructions": "Sauté beef and onion. Add mushrooms, broth, and sour cream. Season with paprika.",
-      "author": "susan_miller"
+      "username": "susan_miller"
     },
     {
       "title": "Shrimp Scampi",
@@ -104,7 +104,7 @@
         "linguine"
       ],
       "instructions": "Sauté shrimp and garlic in butter. Toss with cooked linguine, lemon juice, and parsley.",
-      "author": "chris_martin"
+      "username": "chris_martin"
     },
     {
       "title": "Caprese Salad",
@@ -117,7 +117,7 @@
         "balsamic vinegar"
       ],
       "instructions": "Layer sliced tomatoes, mozzarella, and basil. Drizzle with olive oil and balsamic vinegar.",
-      "author": "patrica_garcia"
+      "username": "patrica_garcia"
     },
     {
       "title": "Margarita Pizza",
@@ -130,7 +130,7 @@
         "olive oil"
       ],
       "instructions": "Top pizza dough with sauce, cheese, and basil. Drizzle with olive oil and bake.",
-      "author": "john_doe"
+      "username": "john_doe"
     },
     {
       "title": "Beef Wellington",
@@ -144,7 +144,7 @@
         "egg"
       ],
       "instructions": "Sear beef, wrap in mushroom mixture and prosciutto, then puff pastry. Bake until golden.",
-      "author": "jane_smith"
+      "username": "jane_smith"
     },
     {
       "title": "Tiramisu",
@@ -158,7 +158,7 @@
         "cocoa powder"
       ],
       "instructions": "Dip ladyfingers in espresso. Layer with mascarpone mixture. Dust with cocoa powder.",
-      "author": "bob_jones"
+      "username": "bob_jones"
     },
     {
       "title": "Lemon Garlic Roasted Chicken",
@@ -173,7 +173,7 @@
         "pepper"
       ],
       "instructions": "Rub chicken with lemon, garlic, and herbs. Roast until golden and cooked through.",
-      "author": "alice_williams"
+      "username": "alice_williams"
     },
     {
       "title": "Vegetarian Chili",
@@ -188,7 +188,7 @@
         "cumin"
       ],
       "instructions": "Sauté vegetables, add beans, tomatoes, and spices. Simmer until flavors meld.",
-      "author": "mike_brown"
+      "username": "mike_brown"
     },
     {
       "title": "Ratatouille",
@@ -203,7 +203,7 @@
         "herbs de Provence"
       ],
       "instructions": "Layer vegetables in baking dish with herbs. Bake until tender and flavorful.",
-      "author": "lisa_clark"
+      "username": "lisa_clark"
     },
     {
       "title": "Lobster Bisque",
@@ -218,7 +218,7 @@
         "brandy"
       ],
       "instructions": "Sauté vegetables, add lobster shells, tomato paste, and broth. Simmer, blend, and add cream and brandy.",
-      "author": "tom_davis"
+      "username": "tom_davis"
     },
     {
       "title": "Beef and Broccoli Stir-Fry",
@@ -233,7 +233,7 @@
         "cornstarch"
       ],
       "instructions": "Sear beef, stir-fry with broccoli and sauce until thickened.",
-      "author": "susan_miller"
+      "username": "susan_miller"
     },
     {
       "title": "Chicken Alfredo",
@@ -247,7 +247,7 @@
         "garlic"
       ],
       "instructions": "Sauté chicken, cook pasta. Make sauce with cream, cheese, and garlic. Combine all.",
-      "author": "chris_martin"
+      "username": "chris_martin"
     },
     {
       "title": "Sushi Rolls",
@@ -262,7 +262,7 @@
         "wasabi"
       ],
       "instructions": "Prepare sushi rice, assemble rolls with fish and vegetables. Cut and serve with soy sauce and wasabi.",
-      "author": "patrica_garcia"
+      "username": "patrica_garcia"
     },
     {
       "title": "Mushroom Risotto",
@@ -277,7 +277,7 @@
         "chicken broth"
       ],
       "instructions": "Sauté mushrooms, onion, garlic. Add rice, wine, broth. Stir until creamy. Finish with cheese.",
-      "author": "john_doe"
+      "username": "john_doe"
     },
   
     {
@@ -293,7 +293,7 @@
         "beef broth"
       ],
       "instructions": "Sear beef, cook vegetables, deglaze with wine, simmer in broth until tender.",
-      "author": "jane_smith"
+      "username": "jane_smith"
     },
     {
       "title": "Chicken Parmesan",
@@ -307,7 +307,7 @@
         "parmesan cheese"
       ],
       "instructions": "Coat chicken in breadcrumbs, fry, top with sauce and cheese, bake until bubbly.",
-      "author": "bob_jones"
+      "username": "bob_jones"
     },
     {
       "title": "Pad Thai",
@@ -322,7 +322,7 @@
         "fish sauce"
       ],
       "instructions": "Stir-fry noodles, shrimp, tofu, and sauce. Add bean sprouts, peanuts, and lime before serving.",
-      "author": "alice_williams"
+      "username": "alice_williams"
     },
     {
       "title": "Homemade Macaroni and Cheese",
@@ -336,7 +336,7 @@
         "breadcrumbs"
       ],
       "instructions": "Cook pasta. Make cheese sauce with milk, cheese, and roux. Bake with breadcrumbs on top.",
-      "author": "mike_brown"
+      "username": "mike_brown"
     },
     {
       "title": "Pulled Pork Sandwiches",
@@ -349,7 +349,7 @@
         "pickles"
       ],
       "instructions": "Season pork, slow-cook until tender, shred and mix with barbecue sauce. Serve on buns with coleslaw and pickles.",
-      "author": "lisa_clark"
+      "username": "lisa_clark"
     },
     {
       "title": "Gnocchi with Pesto Sauce",
@@ -363,7 +363,7 @@
         "olive oil"
       ],
       "instructions": "Cook gnocchi. Blend basil, pine nuts, cheese, garlic, oil for pesto. Toss with gnocchi.",
-      "author": "tom_davis"
+      "username": "tom_davis"
     },
     {
       "title": "Coq au Vin",
@@ -377,7 +377,7 @@
         "chicken broth"
       ],
       "instructions": "Brown chicken, cook bacon, sauté vegetables, deglaze with wine, braise until tender.",
-      "author": "susan_miller"
+      "username": "susan_miller"
     },
     {
       "title": "Shakshuka",
@@ -392,7 +392,7 @@
         "paprika"
       ],
       "instructions": "Sauté vegetables, add spices and tomatoes, simmer, crack eggs into sauce, cook until set.",
-      "author": "chris_martin"
+      "username": "chris_martin"
     },
     {
       "title": "Lamb Biryani",
@@ -407,7 +407,7 @@
         "mint"
       ],
       "instructions": "Marinate lamb, cook with spices, layer with parboiled rice, cook until tender.",
-      "author": "patrica_garcia"
+      "username": "patrica_garcia"
     }
   ]
   
