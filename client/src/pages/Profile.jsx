@@ -1,46 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React, { useEffect, useState } from "react";
+import { useQuery, gql } from "@apollo/client";
 
 const GET_USER_PROFILE = gql`
-  query getUserProfile($userId: ID!) {
-    getUserProfile(userId: $userId) {
-      user {
-        id
-        username
-        email
-      }
+  query Query {
+    getUserProfile {
       createdRecipes {
-        id
         title
-        ingredients
         instructions
-        image
+        ingredients
+        description
+        id
+        createdAt
       }
       savedRecipes {
+        description
         id
-        title
         ingredients
         instructions
-        image
+        title
+        createdBy {
+          username
+        }
+        createdAt
+      }
+      user {
+        username
+        id
       }
     }
   }
 `;
 
-const Profile = ({ userId }) => {
-  const { loading, error, data } = useQuery(GET_USER_PROFILE, { variables: { userId } });
+const Profile = () => {
+  const { loading, error, data } = useQuery(GET_USER_PROFILE);
   const [profile, setProfile] = useState(null);
   const [activeSection, setActiveSection] = useState("saved");
+  const user = data?.getUserProfile || {} 
+  console.log(user)
 
   useEffect(() => {
     if (data) {
-      setProfile(data.getUserProfile);
+      setProfile(data?.getUserProfile);
     }
   }, [data]);
 
   const renderSection = () => {
     if (activeSection === "saved" && profile) {
-      return profile.savedRecipes.map(recipe => (
+      return profile.savedRecipes.map((recipe) => (
         <div key={recipe.id} className="recipe-card">
           <h3>{recipe.title}</h3>
           <img src={recipe.image} alt={recipe.title} />
@@ -53,7 +59,7 @@ const Profile = ({ userId }) => {
         </div>
       ));
     } else if (activeSection === "created" && profile) {
-      return profile.createdRecipes.map(recipe => (
+      return profile.createdRecipes.map((recipe) => (
         <div key={recipe.id} className="recipe-card">
           <h3>{recipe.title}</h3>
           <img src={recipe.image} alt={recipe.title} />
@@ -85,7 +91,9 @@ const Profile = ({ userId }) => {
           Saved Recipes
         </button>
         <button
-          className={`tab-button ${activeSection === "created" ? "active" : ""}`}
+          className={`tab-button ${
+            activeSection === "created" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("created")}
         >
           Created Recipes
@@ -99,4 +107,3 @@ const Profile = ({ userId }) => {
 };
 
 export default Profile;
-

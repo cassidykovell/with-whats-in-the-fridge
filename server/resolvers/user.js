@@ -22,12 +22,10 @@ const userResolvers = {
       return {token, user};
     },
     login: async (_, { email, password }) => {
-      console.log("SECRET", process.env.JWT_SECRET)
       const user = await User.findOne({ email });
       if (!user) {
         throw new Error('User not found');
       }
-
       const isValid = await bcrypt.compare(password, user.password);
       if (!isValid) {
         throw new Error('Invalid password');
