@@ -8,7 +8,7 @@ const recipeResolvers = {
     },
   },
   Mutation: {
-    createRecipe: async (_, { userId, title, description, ingredients, instructions, image }) => {
+    createRecipe: async (_, { userId, title, description, ingredients, instructions }) => {
       const recipe = new Recipe({
         title,
         description,
@@ -39,6 +39,37 @@ const recipeResolvers = {
 
       return recipe;
     },
+    updateRecipe: async (_, { recipeId, title, description, ingredients, instructions }) => {
+      const recipe = await Recipe.findById(recipeId);
+      if (!recipe) {
+        throw new Error('Recipe not found');
+      }
+
+      if (title !== undefined) recipe.title = title;
+      if (description !== undefined) recipe.description = description;
+      if (ingredients !== undefined) recipe.ingredients = ingredients;
+      if (instructions !== undefined) recipe.instructions = instructions;
+
+      await recipe.save();
+
+      return recipe;
+    },
+    deleteRecipe: async (_, { recipeId }) => {
+      const recipe = await Recipe.findById(recipeId);
+      if (!recipe) {
+        throw new Error('Recipe not found');
+      }
+
+      await recipe.remove();
+
+      const user = await User.findById(recipe.createdBy);
+      if (user) {
+        user.recipes = user.recipes.filter(recId => recId.toString() !== recipeId);
+        await user.save();
+      }
+
+      return 'Recipe deleted successfully';
+    }
   },
   Recipe: {
     createdBy: async (parent) => {

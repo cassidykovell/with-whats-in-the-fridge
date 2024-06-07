@@ -38,3 +38,22 @@ export const CREATE_RECIPE = gql `
     }
   }
 `
+export const UPDATE_RECIPE = gql `
+mutation UpdateRecipe($recipeId: ID!) {
+  updateRecipe(recipeId: $recipeId) {
+    createdBy {
+      id
+    }
+    ingredients
+    instructions
+    title
+    id
+    description
+  }
+}
+`
+export const DELETE_RECIPE = gql `
+mutation DeleteRecipe($recipeId: ID!) {
+  deleteRecipe(recipeId: $recipeId)
+} 
+`
