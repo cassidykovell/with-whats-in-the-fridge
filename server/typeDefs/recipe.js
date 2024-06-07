@@ -28,6 +28,8 @@ extend type Query {
 }
   extend type Mutation {
     createRecipe(userId: ID!, title: String!, description: String!, ingredients: [String!]!, instructions: String!): Recipe
+    updateRecipe(recipeId: ID!, title: String, description: String, ingredients: [String!], instructions: String): Recipe
+  deleteRecipe(recipeId: ID!): String
   }
 `;
 
