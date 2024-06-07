@@ -8,9 +8,10 @@ const recipeResolvers = {
     },
   },
   Mutation: {
-    createRecipe: async (_, { userId, title, ingredients, instructions, image }) => {
+    createRecipe: async (_, { userId, title, description, ingredients, instructions, image }) => {
       const recipe = new Recipe({
         title,
+        description,
         ingredients,
         instructions,
         createdBy: userId,
