@@ -4,9 +4,9 @@ const recipeTypeDefs = gql`
 type Recipe {
   id: ID!
   title: String!
+  description: String!
   ingredients: [String!]!
   instructions: String!
-  image: String
   createdBy: User
   createdAt: String
 }

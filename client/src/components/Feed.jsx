@@ -4,7 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 const GET_RECIPES = gql`
   query GetRecipes {
     getAllUserCreatedRecipes {
-      _id
+      id
       title
       description
       ingredients
