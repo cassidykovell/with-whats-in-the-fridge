@@ -10,7 +10,8 @@ mutation Mutation($email: String!, $password: String!) {
       }
     }
   }
-
+`
+export const SIGNUP_USER = gql `
 mutation Register($username: String!, $email: String!, $password: String!) {
     register(username: $username, email: $email, password: $password) {
       token
@@ -21,7 +22,8 @@ mutation Register($username: String!, $email: String!, $password: String!) {
       }
     }
   }
-
+`
+export const CREATE_RECIPE = gql `
   mutation Mutation($userId: ID!, $title: String!, $description: String!, $ingredients: [String!]!, $instructions: String!) {
     createRecipe(userId: $userId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
       createdAt
