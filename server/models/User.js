@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -28,6 +29,15 @@ const userSchema = new Schema({
       ref: 'Recipe'
     }
   ]  
+});
+
+userSchema.pre('save', async function(next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+
+  next();
 });
 
 const User = mongoose.model('User', userSchema);

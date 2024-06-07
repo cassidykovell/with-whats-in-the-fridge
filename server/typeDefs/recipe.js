@@ -27,7 +27,7 @@ extend type Query {
   getUserProfile(userId: ID!): UserProfile
 }
   extend type Mutation {
-    createRecipe(userId: ID!, title: String!, ingredients: [String!]!, instructions: String!): Recipe
+    createRecipe(userId: ID!, title: String!, description: String!, ingredients: [String!]!, instructions: String!): Recipe
   }
 `;
 

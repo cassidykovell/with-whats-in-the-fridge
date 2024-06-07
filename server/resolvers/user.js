@@ -17,9 +17,12 @@ const userResolvers = {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = new User({ username, email, password: hashedPassword });
       await user.save();
-      return user;
+
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      return {token, user};
     },
     login: async (_, { email, password }) => {
+      console.log("SECRET", process.env.JWT_SECRET)
       const user = await User.findOne({ email });
       if (!user) {
         throw new Error('User not found');
@@ -31,7 +34,7 @@ const userResolvers = {
       }
 
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      return token;
+      return {token, user};
     },
   },
   User: {

@@ -8,14 +8,19 @@ const userTypeDefs = gql`
     recipes: [Recipe]
   }
 
+  type Auth {
+    token: ID
+    user: User
+  }
+
   extend type Query {
     getUser(userId: ID!): User
     getUserRecipes(userId: ID!): [Recipe]
   }
 
   extend type Mutation {
-    register(username: String!, email: String!, password: String!): User
-    login(email: String!, password: String!): String
+    register(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
 `;
 
