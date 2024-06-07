@@ -4,10 +4,32 @@ import './index.css';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  console.log("token1", token)
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  };
+});
+console.log("auth", authLink)
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
 
 const App = () => {
   return (
-    <div>
+    <ApolloProvider client = {client}>
       <header className="header">
         <Header />
         <Nav />
@@ -16,7 +38,7 @@ const App = () => {
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </ApolloProvider>
   );
 };
 

@@ -8,7 +8,7 @@ const profileTypeDefs = gql`
   }
 
   extend type Query {
-    getUserProfile(userId: ID!): UserProfile
+    getUserProfile: UserProfile
   }
 `;
 

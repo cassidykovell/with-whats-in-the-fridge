@@ -3,8 +3,9 @@ const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
-const { authMiddleware } = require('./utils/auth');
+const protect = require('./utils/auth');
 const cors = require('cors');
+
 
 const typeDefs = require('./typeDefs')
 const resolvers = require('./resolvers')
@@ -29,7 +30,7 @@ const startApolloServer = async () => {
   app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
   app.use('/graphql', expressMiddleware(server, {
-    context: authMiddleware
+    context: protect
   }));
 
   if (process.env.NODE_ENV === 'production') {
