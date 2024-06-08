@@ -3,23 +3,23 @@ const User = require('../models/User');
 
 const profileResolvers = {
   Query: {
-    getUserProfile: async (_, __, { user }) => { // Destructure 'user' from context
-      if (!user) {
-        throw new Error('You must be logged in to view this data');
-      }
-      try {
-        const currentUser = await User.findById(user.id).populate('savedRecipes');
-        const createdRecipes = await Recipe.find({ createdBy: user.id });
+    getUserProfile: async (_, args, context) => {
+      console.log("context", context.user)
+      // try {
+      //   const user = await User.findById(userId).populate('savedRecipes');
+      //    console.log("user", user)
+      //   const createdRecipes = await Recipe.find({ createdBy: userId });
+      //  console.log("created", createdRecipes)
 
-        return {
-          user: currentUser,
-          createdRecipes,
-          savedRecipes: currentUser.savedRecipes
-        };
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-        throw new Error('Failed to fetch user profile');
-      }
+      //   return {
+      //     user,
+      //     createdRecipes,
+      //     savedRecipes: user.savedRecipes
+      //   };
+      // } catch (error) {
+      //   console.error('Error fetching user profile:', error);
+      //   throw new Error('Failed to fetch user profile');
+      // }
     },
   },
 };
