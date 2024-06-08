@@ -3,15 +3,18 @@ const User = require('../models/User');
 
 const profileResolvers = {
   Query: {
-    getUserProfile: async (_, { userId }) => {
+    getUserProfile: async (_, __, { user }) => { // Destructure 'user' from context
+      if (!user) {
+        throw new Error('You must be logged in to view this data');
+      }
       try {
-        const user = await User.findById(userId).populate('savedRecipes');
-        const createdRecipes = await Recipe.find({ createdBy: userId });
+        const currentUser = await User.findById(user.id).populate('savedRecipes');
+        const createdRecipes = await Recipe.find({ createdBy: user.id });
 
         return {
-          user,
+          user: currentUser,
           createdRecipes,
-          savedRecipes: user.savedRecipes
+          savedRecipes: currentUser.savedRecipes
         };
       } catch (error) {
         console.error('Error fetching user profile:', error);

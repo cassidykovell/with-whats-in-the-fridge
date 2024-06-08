@@ -12,6 +12,11 @@ export default defineConfig({
         secure: false,
         changeOrigin: true
       }
+    },
+    resolve: {
+      alias: {
+        'jwt-decode': '/node_modules/jwt-decode/build/jwt-decode.esm.js'
+      }
     }
   }
 })
