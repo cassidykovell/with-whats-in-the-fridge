@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
-import { GET_RECIPES_BY_INGREDIENTS } from './queries';
 
 const Fridge = () => {
   const [ingredients, setIngredients] = useState([]);
