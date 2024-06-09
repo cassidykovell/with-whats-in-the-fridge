@@ -35,12 +35,11 @@ const Profile = () => {
   const { loading, error, data } = useQuery(GET_USER_PROFILE);
   const [profile, setProfile] = useState(null);
   const [activeSection, setActiveSection] = useState("saved");
-  const user = data?.getUserProfile || {} 
-  console.log(user)
 
   useEffect(() => {
     if (data) {
-      setProfile(data?.getUserProfile);
+      console.log('Profile data fetched:', data);
+      setProfile(data.getUserProfile);
     }
   }, [data]);
 
@@ -75,7 +74,10 @@ const Profile = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading profile</p>;
+  if (error) {
+    console.error('Error loading profile:', error);
+    return <p>Error loading profile</p>;
+  }
 
   return (
     <div>
@@ -91,9 +93,7 @@ const Profile = () => {
           Saved Recipes
         </button>
         <button
-          className={`tab-button ${
-            activeSection === "created" ? "active" : ""
-          }`}
+          className={`tab-button ${activeSection === "created" ? "active" : ""}`}
           onClick={() => setActiveSection("created")}
         >
           Created Recipes

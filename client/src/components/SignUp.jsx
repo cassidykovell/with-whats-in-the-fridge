@@ -1,38 +1,27 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SIGNUP_USER } from "../../utils/mutations";
-
 import Auth from '../../utils/auth';
 
 const SignUp = () => {
-  const [formState, setFormState] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [formState, setFormState] = useState({ username: "", email: "", password: "" });
   const [addUser, { error, data }] = useMutation(SIGNUP_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    setFormState({ ...formState, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+    console.log("Form State:", formState);
 
     try {
-      const { data } = await addUser({
-        variables: { ...formState },
-      });
-
-      Auth.login(data.addUser.token);
+      const { data } = await addUser({ variables: { ...formState } });
+      console.log("Signup response data:", data);
+      Auth.login(data.register.token);
     } catch (e) {
-      console.error(e);
+      console.error("Signup error:", e);
     }
   };
 
@@ -44,7 +33,7 @@ const SignUp = () => {
         placeholder="Username"
         name="username"
         type="text"
-        value={formState.name}
+        value={formState.username}
         onChange={handleChange}
       />
       <input
@@ -66,6 +55,7 @@ const SignUp = () => {
       <button onClick={handleFormSubmit} id="sign-btn">
         Sign Up
       </button>
+      {error && <div>{error.message}</div>}
     </div>
   );
 };

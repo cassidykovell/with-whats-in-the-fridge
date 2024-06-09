@@ -9,6 +9,7 @@ type Recipe {
   instructions: String!
   createdBy: User
   createdAt: String
+  image: String
 }
 
 type User {
@@ -25,12 +26,15 @@ extend type Query {
   getUser(userId: ID!): User
   getUserRecipes(userId: ID!): [Recipe]
   getUserProfile(userId: ID!): UserProfile
+  getRecipesByIngredients(ingredients: [String!]!): [Recipe]
 }
-  extend type Mutation {
-    createRecipe(userId: ID!, title: String!, description: String!, ingredients: [String!]!, instructions: String!): Recipe
-    updateRecipe(recipeId: ID!, title: String, description: String, ingredients: [String!], instructions: String): Recipe
+
+extend type Mutation {
+  createRecipe(userId: ID!, title: String!, description: String!, ingredients: [String!]!, instructions: String!): Recipe
+  updateRecipe(recipeId: ID!, title: String, description: String, ingredients: [String!], instructions: String): Recipe
   deleteRecipe(recipeId: ID!): String
-  }
+}
 `;
 
 module.exports = recipeTypeDefs;
+

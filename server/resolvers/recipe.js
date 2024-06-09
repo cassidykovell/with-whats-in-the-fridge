@@ -6,6 +6,42 @@ const recipeResolvers = {
     getRecipe: async (_, { recipeId }) => {
       return await Recipe.findById(recipeId);
     },
+    getRecipesByIngredients: async (_, { ingredients }) => {
+      const recipes = await Recipe.aggregate([
+        {
+          $addFields: {
+            matchingIngredientsCount: {
+              $size: {
+                $filter: {
+                  input: "$ingredients",
+                  as: "ingredient",
+                  cond: { $in: ["$$ingredient", ingredients] }
+                }
+              }
+            }
+          }
+        },
+        {
+          $sort: {
+            matchingIngredientsCount: -1,
+            ingredientsCount: 1
+          }
+        },
+        {
+          $addFields: {
+            ingredientsCount: { $size: "$ingredients" }
+          }
+        },
+        {
+          $sort: {
+            matchingIngredientsCount: -1,
+            ingredientsCount: 1
+          }
+        }
+      ]);
+
+      return recipes;
+    }
   },
   Mutation: {
     createRecipe: async (_, { userId, title, description, ingredients, instructions }) => {

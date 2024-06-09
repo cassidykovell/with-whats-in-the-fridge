@@ -35,10 +35,10 @@ const Feed = () => {
     <div className="feed-container">
       {data.getAllUserCreatedRecipes.map(recipe => (
         <div 
-          key={recipe._id} 
+          key={recipe.id} 
           className="recipe-card" 
           style={{ border: '1px solid #ccc', margin: '10px', padding: '10px', cursor: 'pointer' }} 
-          onClick={() => setExpandedRecipeId(expandedRecipeId === recipe._id ? null : recipe._id)}
+          onClick={() => setExpandedRecipeId(expandedRecipeId === recipe.id ? null : recipe.id)}
         >
           <h3>{recipe.title}</h3>
           <p>{recipe.description}</p>
@@ -47,12 +47,12 @@ const Feed = () => {
           ) : (
             <p><strong>Author: </strong>Unknown</p>
           )}
-          {expandedRecipeId === recipe._id && (
+          {expandedRecipeId === recipe.id && (
             <>
               <p><strong>Instructions:</strong> {recipe.instructions}</p>
               <ul>
                 {recipe.ingredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+                  <li key={index}>{ingredient}</li> 
                 ))}
               </ul>
             </>
