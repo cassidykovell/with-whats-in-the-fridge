@@ -1,6 +1,4 @@
-const { gql } = require('apollo-server-express');
-
-const ingredientsTypeDefs = gql`
+const ingredientsTypeDefs = `
   type Ingredient {
     id: ID!
     name: String!
