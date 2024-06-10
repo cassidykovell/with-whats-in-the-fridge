@@ -182,6 +182,8 @@ a {
   border-radius: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 1em;
+  font-size: 1.5em;
 }
 
 .profile-header .create-recipe-button:hover {
@@ -408,4 +410,93 @@ a {
 #add-updated:hover {
   background-color: rgb(242, 222, 204);
   color: rgb(166, 135, 79);
+}
+
+.UD-btn {
+  padding: 0.5rem 1rem;
+  background-color: rgb(250, 247, 237);
+  color: rgb(166, 135, 79);
+  border: 1px solid rgb(213, 197, 161);
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 1em;
+}
+
+.UD-btn:hover {
+  background-color: rgb(166, 135, 79);
+  color: rgb(242, 222, 204);
+}
+
+.form-popup {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  color: rgb(166, 135, 79);
+  transform: translateX(-50%);
+  background-color: rgb(250, 247, 237);
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; 
+}
+
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.form-popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-popup form label {
+  margin-bottom: 10px;
+}
+
+.form-popup form input,
+.form-popup form textarea {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-popup form button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background-color: rgb(166, 135, 79);
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.form-popup form button:last-of-type {
+  background-color: rgb(250, 247, 237);
+  color: rgb(166, 135, 79);
+  border: 1px solid rgb(213, 197, 161);
+}
+
+.form-popup form button:last-of-type:hover {
+  background-color: rgb(166, 135, 79);
+  color: rgb(242, 222, 204);
 }
