@@ -67,12 +67,17 @@ const DELETE_RECIPE = gql`
 	}
 `;
 
-
 const Profile = () => {
 	const { loading, error, data } = useQuery(GET_USER_PROFILE);
-	const [createRecipe] = useMutation(CREATE_RECIPE);
-	const [updateRecipe] = useMutation(UPDATE_RECIPE);
-	const [deleteRecipe] = useMutation(DELETE_RECIPE);
+	const [createRecipe] = useMutation(CREATE_RECIPE, {
+		refetchQueries: [{ query: GET_USER_PROFILE }],
+	});
+	const [updateRecipe] = useMutation(UPDATE_RECIPE, {
+		refetchQueries: [{ query: GET_USER_PROFILE }],
+	});
+	const [deleteRecipe] = useMutation(DELETE_RECIPE, {
+		refetchQueries: [{ query: GET_USER_PROFILE }],
+	});
 
 	const [profile, setProfile] = useState(null);
 	const [activeSection, setActiveSection] = useState('saved');
@@ -118,24 +123,50 @@ const Profile = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		console.log('Form submitted');
 		const { id, ...recipeInput } = formValues;
 
-		if (formType === 'create') {
-			await createRecipe({ variables: { input: recipeInput } });
-		} else if (formType === 'update') {
-			await updateRecipe({ variables: { id, input: recipeInput } });
+		try {
+			if (formType === 'create') {
+				console.log('Creating recipe with values:', recipeInput);
+				const { data } = await createRecipe({
+					variables: {
+						userId: profile.user.id,
+						title: formValues.title,
+						description: formValues.description,
+						ingredients: formValues.ingredients,
+						instructions: formValues.instructions,
+					},
+				});
+				console.log('Recipe created:', data);
+			} else if (formType === 'update') {
+				console.log('Updating recipe with ID:', id);
+				const { data } = await updateRecipe({
+					variables: {
+						recipeId: formValues.id,
+						title: formValues.title,
+						description: formValues.description,
+						ingredients: formValues.ingredients,
+						instructions: formValues.instructions,
+					},
+				});
+				console.log('Recipe updated:', data);
+			}
+			setIsFormOpen(false);
+			setFormValues({
+				title: '',
+				description: '',
+				ingredients: [''],
+				instructions: '',
+				id: null
+			});
+		} catch (error) {
+			console.error('Error submitting form:', error);
 		}
-		setIsFormOpen(false);
-		setFormValues({
-			title: '',
-			description: '',
-			ingredients: [''],
-			instructions: '',
-			id: null
-		});
 	};
 
 	const handleOpenCreateForm = () => {
+		console.log('Opening create form');
 		setFormType('create');
 		setFormValues({
 			title: '',
@@ -148,6 +179,7 @@ const Profile = () => {
 	};
 
 	const handleEdit = (recipe) => {
+		console.log('Editing recipe with ID:', recipe.id);
 		setFormType('update');
 		setFormValues({
 			id: recipe.id,
@@ -160,7 +192,8 @@ const Profile = () => {
 	};
 
 	const handleDelete = async (id) => {
-		await deleteRecipe({ variables: { id } });
+		console.log('Deleting recipe with ID:', id);
+		await deleteRecipe({ variables: { recipeId: id } });
 	};
 
 	const renderSection = () => {
@@ -171,9 +204,9 @@ const Profile = () => {
 					{recipe?.image && <img src={recipe.image} alt={recipe.title} />}
 					<p>{recipe.instructions}</p>
 					<ul>
-					{recipe.ingredients.map((ingredient, index) => (
-								<li key={index}>{ingredient}</li>
-							))}
+						{recipe.ingredients.map((ingredient, index) => (
+							<li key={index}>{ingredient}</li>
+						))}
 					</ul>
 					<button onClick={() => handleEdit(recipe)}>Update</button>
 					<button onClick={() => handleDelete(recipe.id)}>Delete</button>
@@ -219,9 +252,7 @@ const Profile = () => {
 					Saved Recipes
 				</button>
 				<button
-					className={`tab-button ${
-						activeSection === 'created' ? 'active' : ''
-					}`}
+					className={`tab-button ${activeSection === 'created' ? 'active' : ''}`}
 					onClick={() => setActiveSection('created')}
 				>
 					Created Recipes
@@ -232,6 +263,7 @@ const Profile = () => {
 			</div>
 			{isFormOpen && (
 				<div className="form-popup">
+					{console.log('Rendering form')}
 					<form onSubmit={handleSubmit}>
 						<h2>{formType === 'create' ? 'Create Recipe' : 'Update Recipe'}</h2>
 						<label>
@@ -281,11 +313,12 @@ const Profile = () => {
 								required
 							/>
 						</label>
-						<button type="submit">{formType === 'create' ? 'Create' : 'Update'}</button>
+						<button type="submit">Submit</button>
 						<button type="button" onClick={() => setIsFormOpen(false)}>
 							Cancel
 						</button>
 					</form>
+					{console.log('Form rendered')}
 				</div>
 			)}
 		</div>
@@ -293,5 +326,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
