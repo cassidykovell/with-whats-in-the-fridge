@@ -24,19 +24,18 @@ mutation Register($username: String!, $email: String!, $password: String!) {
   }
 `
 export const CREATE_RECIPE = gql `
-  mutation Mutation($userId: ID!, $title: String!, $description: String!, $ingredients: [String!]!, $instructions: String!) {
-    createRecipe(userId: $userId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
-      createdAt
-      createdBy {
-        username
-      }
-      description
-      id
-      ingredients
-      instructions
-      title
+  mutation Mutation($userId: ID!, $title: String!, $description: String, $ingredients: [String], $instructions: String) {
+  createRecipe(userId: $userId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
+    title
+    instructions
+    ingredients
+    description
+    createdAt
+    author {
+      username
     }
   }
+}
 `
 export const UPDATE_RECIPE = gql `
 mutation UpdateRecipe($recipeId: ID!) {

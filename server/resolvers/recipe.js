@@ -1,67 +1,37 @@
 const { Recipe, User } = require("../models");
 
 const recipeResolvers = {
-  Query: {
-    getRecipe: async (_, { recipeId }) => {
-      return await Recipe.findById(recipeId);
-    },
-    getRecipesByIngredients: async (_, { ingredients }) => {
-      const recipes = await Recipe.aggregate([
-        {
-          $addFields: {
-            matchingIngredientsCount: {
-              $size: {
-                $filter: {
-                  input: "$ingredients",
-                  as: "ingredient",
-                  cond: { $in: ["$$ingredient", ingredients] },
-                },
-              },
-            },
-          },
-        },
-        {
-          $sort: {
-            matchingIngredientsCount: -1,
-            ingredientsCount: 1,
-          },
-        },
-        {
-          $addFields: {
-            ingredientsCount: { $size: "$ingredients" },
-          },
-        },
-        {
-          $sort: {
-            matchingIngredientsCount: -1,
-            ingredientsCount: 1,
-          },
-        },
-      ]);
-
-      return recipes;
-    },
-  },
   Mutation: {
-    createRecipe: async (
-      _,
-      { userId, title, description, ingredients, instructions }
-    ) => {
+    createRecipe: async (_, { userId, title, description, ingredients, instructions }) => {
+      // Create the new recipe
       const recipe = new Recipe({
         title,
         description,
         ingredients,
         instructions,
-        createdBy: userId,
+        author: userId,
       });
 
       await recipe.save();
       
+      // Find the user by ID
+      const user = await User.findById(userId);
+      if (user) {
+        // If user exists, push the recipe ID to savedRecipes and save the user
+        user.savedRecipes.push(recipe._id);
+        await user.save();
+      } else {
+        // If user does not exist, log a warning (or handle it as needed)
+        console.warn(`User with ID ${userId} not found`);
+      }
+
+      // Return the recipe with populated author field
+      return {
+        ...recipe.toObject(),
+        author: user,
+      };
     },
-    updateRecipe: async (
-      _,
-      { recipeId, title, description, ingredients, instructions }
-    ) => {
+    updateRecipe: async (_, { recipeId, title, description, ingredients, instructions }) => {
       const recipe = await Recipe.findById(recipeId);
       if (!recipe) {
         throw new Error("Recipe not found");
@@ -84,20 +54,20 @@ const recipeResolvers = {
 
       await recipe.remove();
 
-      const user = await User.findById(recipe.createdBy);
+      const user = await User.findById(recipe.author);
       if (user) {
-        user.recipes = user.recipes.filter(
+        user.savedRecipes = user.savedRecipes.filter(
           (recId) => recId.toString() !== recipeId
         );
         await user.save();
       }
 
-      return "Recipe deleted successfully";
+      return true;
     },
   },
   Recipe: {
-    createdBy: async (parent) => {
-      return await User.findById(parent.createdBy);
+    author: async (parent) => {
+      return await User.findById(parent.author);
     },
   },
 };
