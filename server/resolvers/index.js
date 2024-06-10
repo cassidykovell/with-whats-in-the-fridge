@@ -1,5 +1,5 @@
 const userResolvers = require('./user');
-// const recipeResolvers = require('./recipe');
+const recipeResolvers = require('./recipe');
 // const ingredientsResolvers = require('./ingredients');
 const feedResolvers = require('./feedPage');
 // const profileResolvers = require('./profile');
@@ -14,7 +14,7 @@ const resolvers = {
 	},
 	Mutation: {
 		...userResolvers.Mutation,
-		// ...recipeResolvers.Mutation,
+		...recipeResolvers.Mutation,
 	},
 	User: {
 		...userResolvers.User,
