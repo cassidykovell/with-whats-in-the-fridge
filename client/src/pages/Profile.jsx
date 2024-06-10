@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, useMutation, gql } from '@apollo/client';
 
 const GET_USER_PROFILE = gql`
 	query Query {
@@ -32,10 +32,59 @@ const GET_USER_PROFILE = gql`
 	}
 `;
 
+const CREATE_RECIPE = gql`
+	mutation CreateRecipe($userId: ID!, $title: String!, $description: String!, $ingredients: [String!]!, $instructions: String!) {
+		createRecipe(userId: $userId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
+			id
+			title
+			description
+			ingredients
+			instructions
+			createdBy {
+				id
+				username
+			}
+			image
+		}
+	}
+`;
+
+const UPDATE_RECIPE = gql`
+	mutation UpdateRecipe($recipeId: ID!, $title: String, $description: String, $ingredients: [String!], $instructions: String) {
+		updateRecipe(recipeId: $recipeId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
+			id
+			title
+			description
+			ingredients
+			instructions
+		}
+	}
+`;
+
+const DELETE_RECIPE = gql`
+	mutation DeleteRecipe($recipeId: ID!) {
+		deleteRecipe(recipeId: $recipeId)
+	}
+`;
+
+
 const Profile = () => {
 	const { loading, error, data } = useQuery(GET_USER_PROFILE);
+	const [createRecipe] = useMutation(CREATE_RECIPE);
+	const [updateRecipe] = useMutation(UPDATE_RECIPE);
+	const [deleteRecipe] = useMutation(DELETE_RECIPE);
+
 	const [profile, setProfile] = useState(null);
 	const [activeSection, setActiveSection] = useState('saved');
+	const [isFormOpen, setIsFormOpen] = useState(false);
+	const [formType, setFormType] = useState('create');
+	const [formValues, setFormValues] = useState({
+		title: '',
+		description: '',
+		ingredients: [''],
+		instructions: '',
+		id: null
+	});
 
 	useEffect(() => {
 		if (data) {
@@ -43,7 +92,77 @@ const Profile = () => {
 			setProfile(data.getUserProfile);
 		}
 	}, [data]);
-	console.log('profile', profile);
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormValues((prev) => ({ ...prev, [name]: value }));
+	};
+
+	const handleIngredientChange = (index, value) => {
+		const newIngredients = [...formValues.ingredients];
+		newIngredients[index] = value;
+		setFormValues((prev) => ({ ...prev, ingredients: newIngredients }));
+	};
+
+	const handleAddIngredient = () => {
+		setFormValues((prev) => ({
+			...prev,
+			ingredients: [...prev.ingredients, '']
+		}));
+	};
+
+	const handleRemoveIngredient = (index) => {
+		const newIngredients = formValues.ingredients.filter((_, i) => i !== index);
+		setFormValues((prev) => ({ ...prev, ingredients: newIngredients }));
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const { id, ...recipeInput } = formValues;
+
+		if (formType === 'create') {
+			await createRecipe({ variables: { input: recipeInput } });
+		} else if (formType === 'update') {
+			await updateRecipe({ variables: { id, input: recipeInput } });
+		}
+		setIsFormOpen(false);
+		setFormValues({
+			title: '',
+			description: '',
+			ingredients: [''],
+			instructions: '',
+			id: null
+		});
+	};
+
+	const handleOpenCreateForm = () => {
+		setFormType('create');
+		setFormValues({
+			title: '',
+			description: '',
+			ingredients: [''],
+			instructions: '',
+			id: null
+		});
+		setIsFormOpen(true);
+	};
+
+	const handleEdit = (recipe) => {
+		setFormType('update');
+		setFormValues({
+			id: recipe.id,
+			title: recipe.title,
+			description: recipe.description,
+			ingredients: recipe.ingredients,
+			instructions: recipe.instructions
+		});
+		setIsFormOpen(true);
+	};
+
+	const handleDelete = async (id) => {
+		await deleteRecipe({ variables: { id } });
+	};
+
 	const renderSection = () => {
 		if (activeSection === 'saved' && profile) {
 			return profile.user.savedRecipes.map((recipe) => (
@@ -52,10 +171,12 @@ const Profile = () => {
 					{recipe?.image && <img src={recipe.image} alt={recipe.title} />}
 					<p>{recipe.instructions}</p>
 					<ul>
-						{recipe.ingredients.map((ingredient, index) => (
-							<li key={index}>{ingredient}</li>
-						))}
+					{recipe.ingredients.map((ingredient, index) => (
+								<li key={index}>{ingredient}</li>
+							))}
 					</ul>
+					<button onClick={() => handleEdit(recipe)}>Update</button>
+					<button onClick={() => handleDelete(recipe.id)}>Delete</button>
 				</div>
 			));
 		} else if (activeSection === 'created' && profile) {
@@ -69,6 +190,8 @@ const Profile = () => {
 							<li key={index}>{ingredient}</li>
 						))}
 					</ul>
+					<button onClick={() => handleEdit(recipe)}>Update</button>
+					<button onClick={() => handleDelete(recipe.id)}>Delete</button>
 				</div>
 			));
 		}
@@ -83,8 +206,10 @@ const Profile = () => {
 	return (
 		<div>
 			<div className="profile-header">
-				<h1 id="title">My Profile</h1>
-				<button className="create-recipe-button">Create Recipe</button>
+				<h1 id="title">{profile?.user?.username}'s Profile</h1>
+				<button className="create-recipe-button" onClick={handleOpenCreateForm}>
+					Create Recipe
+				</button>
 			</div>
 			<div className="profile-tabs">
 				<button
@@ -105,9 +230,68 @@ const Profile = () => {
 			<div className="profile-container">
 				<div className="profile-content">{renderSection()}</div>
 			</div>
+			{isFormOpen && (
+				<div className="form-popup">
+					<form onSubmit={handleSubmit}>
+						<h2>{formType === 'create' ? 'Create Recipe' : 'Update Recipe'}</h2>
+						<label>
+							Title:
+							<input
+								type="text"
+								name="title"
+								value={formValues.title}
+								onChange={handleInputChange}
+								required
+							/>
+						</label>
+						<label>
+							Description:
+							<textarea
+								name="description"
+								value={formValues.description}
+								onChange={handleInputChange}
+								required
+							/>
+						</label>
+						<label>
+							Ingredients:
+							{formValues.ingredients.map((ingredient, index) => (
+								<div key={index}>
+									<input
+										type="text"
+										value={ingredient}
+										onChange={(e) => handleIngredientChange(index, e.target.value)}
+										required
+									/>
+									<button type="button" onClick={() => handleRemoveIngredient(index)}>
+										Remove
+									</button>
+								</div>
+							))}
+							<button type="button" onClick={handleAddIngredient}>
+								Add Ingredient
+							</button>
+						</label>
+						<label>
+							Instructions:
+							<textarea
+								name="instructions"
+								value={formValues.instructions}
+								onChange={handleInputChange}
+								required
+							/>
+						</label>
+						<button type="submit">{formType === 'create' ? 'Create' : 'Update'}</button>
+						<button type="button" onClick={() => setIsFormOpen(false)}>
+							Cancel
+						</button>
+					</form>
+				</div>
+			)}
 		</div>
 	);
 };
 
 export default Profile;
+
 
