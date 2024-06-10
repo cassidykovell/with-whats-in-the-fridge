@@ -342,8 +342,6 @@ a {
   color: rgb(166, 135, 79);
 }
 
-
-
 .fridge-container {
   display: flex;
   flex-direction: column;
@@ -371,4 +369,43 @@ a {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+#center-updated{
+  text-align: center;
+  color: rgb(242, 222, 204);
+  font-size: 3em;
+}
+
+.ai-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#btn-updated {
+  display: flex;
+  justify-content: center;
+}
+
+#ingred-updated {
+  border: 3px solid rgb(213, 197, 161);
+  padding: 0.5em;
+  margin: 0em 5em 0em 5em;
+  border-radius: 20px;
+  font-size: 1em;
+}
+
+#add-updated {
+  margin: 1em;
+  padding: 0.5em 3em .5em 3em;
+  border: 2px solid rgb(242, 222, 204);
+  border-radius: 20px;
+  background-color: rgb(166, 135, 79);
+  color: rgb(242, 222, 204);
+}
+
+#add-updated:hover {
+  background-color: rgb(242, 222, 204);
+  color: rgb(166, 135, 79);
 }

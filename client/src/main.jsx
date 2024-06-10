@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Authentication from './pages/Authentication';
 import Fridge from './pages/Fridge';
 import FeedPage from './pages/FeedPage';
+import Ai from './pages/AiPage'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'fridge',
         element: <Fridge />,
+      },
+      {
+        path: 'ai',
+        element: <Ai />,
       },
     ],
   },
