@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Fridge = () => {
   const [ingredients, setIngredients] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [getRecipes, { loading, error, data }] = useLazyQuery(GET_RECIPES_BY_INGREDIENTS);
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [selectedRecipeId, setSelectedRecipeId] = useState(null);
+  const [recipeDetails, setRecipeDetails] = useState(null);
+
+  const API_KEY = 'edb873e4c511412ab341a50963c0f518'; // Hardcoded API key
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -11,19 +17,66 @@ const Fridge = () => {
 
   const handleAddIngredient = () => {
     if (inputValue.trim() !== '') {
-      setIngredients([...ingredients, inputValue]);
+      setIngredients([...ingredients, inputValue.trim()]);
       setInputValue('');
     }
   };
 
   const handleDeleteIngredient = (index) => {
-    const updatedIngredients = [...ingredients];
-    updatedIngredients.splice(index, 1);
+    const updatedIngredients = ingredients.filter((_, i) => i !== index);
     setIngredients(updatedIngredients);
   };
 
-  const handleSearchRecipes = () => {
-    getRecipes({ variables: { ingredients } });
+  const handleSearchRecipes = async () => {
+    if (ingredients.length === 0) {
+      setError('Please add at least one ingredient.');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setRecipes([]);
+    setRecipeDetails(null);
+    setSelectedRecipeId(null);
+
+    try {
+      const response = await fetch(
+        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.join(',')}&apiKey=${API_KEY}`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch recipes. Please try again later.');
+      }
+      const data = await response.json();
+      console.log('Recipes fetched:', data); // Log fetched recipes
+      setRecipes(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectRecipe = async (recipeId) => {
+    setSelectedRecipeId(recipeId);
+    setLoading(true);
+    setError(null);
+    setRecipeDetails(null);
+
+    try {
+      const response = await fetch(
+        `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch recipe details. Please try again later.');
+      }
+      const data = await response.json();
+      console.log('Recipe details fetched:', data); // Log fetched recipe details
+      setRecipeDetails(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,28 +102,54 @@ const Fridge = () => {
       </div>
       <button onClick={handleSearchRecipes}>Search Recipes</button>
 
-      <div className="recipes-section">
-        {loading && <p>Loading...</p>}
-        {error && <p>Error fetching recipes: {error.message}</p>}
-        {data && (
-          <div>
-            {data.getRecipesByIngredients.map((recipe) => (
-              <div key={recipe.id} className="recipe-item">
-                <h3>{recipe.title}</h3>
-                <p>{recipe.description}</p>
-                <img src={recipe.image} alt={recipe.title} />
-                <h4>Ingredients</h4>
-                <ul>
-                  {recipe.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
-                <h4>Instructions</h4>
-                <p>{recipe.instructions}</p>
-              </div>
-            ))}
-          </div>
-        )}
+      <div className="results-section" style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div className="recipes-section">
+          {loading && !recipeDetails && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          {recipes.length > 0 && (
+            <div>
+              {recipes.map((recipe) => (
+                <div 
+                  key={recipe.id} 
+                  className="recipe-item"
+                  onClick={() => handleSelectRecipe(recipe.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <h3>{recipe.title}</h3>
+                  <img src={recipe.image} alt={recipe.title} />
+                  <p>Used Ingredients: {recipe.usedIngredientCount}</p>
+                  <p>Missing Ingredients: {recipe.missedIngredientCount}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="recipe-details-section" style={{ marginLeft: '20px', flex: 1 }}>
+          {loading && recipeDetails && <p>Loading details...</p>}
+          {selectedRecipeId && recipeDetails && (
+            <div className="recipe-details">
+              <h2>{recipeDetails.title}</h2>
+              <img src={recipeDetails.image} alt={recipeDetails.title} />
+              <h3>Ingredients:</h3>
+              <ul>
+                {recipeDetails.extendedIngredients.map((ingredient) => (
+                  <li key={ingredient.id}>{ingredient.original}</li>
+                ))}
+              </ul>
+              <h3>Instructions:</h3>
+              <ul>
+                {recipeDetails.analyzedInstructions.length > 0 ? (
+                  recipeDetails.analyzedInstructions[0].steps.map((step) => (
+                    <li key={step.number}>{step.step}</li>
+                  ))
+                ) : (
+                  <p>No instructions available.</p>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
