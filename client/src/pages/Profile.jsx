@@ -226,6 +226,7 @@ const Profile = () => {
         </div>
       ));
     } else if (activeSection === "created" && profile) {
+      console.log("Rendering created recipes:", profile.createdRecipes);
       return profile.createdRecipes.map((recipe) => (
         <div key={recipe.id} className="recipe-card">
           <h3>{recipe.title}</h3>

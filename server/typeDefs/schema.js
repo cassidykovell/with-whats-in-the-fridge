@@ -15,6 +15,14 @@ const typeDefs = `
     instructions: String
     createdAt: String
     author: User
+    comments: [Comment]
+  }
+
+  type Comment {
+    id: ID!
+    content: String!
+    createdAt: String!
+    author: User
   }
 
   type Auth {
@@ -38,6 +46,9 @@ const typeDefs = `
     createRecipe(userId: ID!, title: String!, description: String, ingredients: [String], instructions: String): Recipe
     updateRecipe(recipeId: ID!, title: String, description: String, ingredients: [String], instructions: String): Recipe
     deleteRecipe(recipeId: ID!): Boolean
+    saveRecipe(userId: ID!, recipeId: ID!): User
+    addComment(recipeId: ID!, userId: ID!, content: String!): Recipe
+    deleteComment(recipeId: ID!, commentId: ID!): Recipe
   }
 `;
 
