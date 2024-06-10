@@ -1,11 +1,10 @@
-const { gql } = require('apollo-server-express');
 const userTypeDefs = require('./user');
 const recipeTypeDefs = require('./recipe');
 const ingredientsTypeDefs = require('./ingredients');
 const feedTypeDefs = require('./feedPage');
-const profileTypeDefs = require('./profile')
+const profileTypeDefs = require('./profile');
 
-const baseTypeDefs = gql`
+const baseTypeDefs = `
   type Query {
     _: Boolean
   }
@@ -15,6 +14,14 @@ const baseTypeDefs = gql`
   }
 `;
 
-const typeDefs = [baseTypeDefs, userTypeDefs, recipeTypeDefs, ingredientsTypeDefs, feedTypeDefs, profileTypeDefs];
+const typeDefs = [
+	baseTypeDefs,
+	userTypeDefs,
+	recipeTypeDefs,
+	ingredientsTypeDefs,
+	feedTypeDefs,
+	profileTypeDefs,
+];
 
 module.exports = typeDefs;
+

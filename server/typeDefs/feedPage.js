@@ -1,6 +1,4 @@
-const { gql } = require('apollo-server-express');
-
-const feedTypeDefs = gql`
+const feedTypeDefs = `
   extend type Query {
     getAllUserCreatedRecipes: [Recipe]
   }

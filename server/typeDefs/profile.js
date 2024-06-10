@@ -1,6 +1,4 @@
-const { gql } = require('apollo-server-express');
-
-const profileTypeDefs = gql`
+const profileTypeDefs = `
   type UserProfile {
     user: User
     createdRecipes: [Recipe]
