@@ -33,32 +33,18 @@ const GET_USER_PROFILE = gql`
 `;
 
 const CREATE_RECIPE = gql`
-  mutation CreateRecipe(
-    $userId: ID!
-    $title: String!
-    $description: String!
-    $ingredients: [String!]!
-    $instructions: String!
-  ) {
-    createRecipe(
-      userId: $userId
-      title: $title
-      description: $description
-      ingredients: $ingredients
-      instructions: $instructions
-    ) {
-      id
-      title
-      description
-      ingredients
-      instructions
-      createdBy {
-        id
-        username
-      }
-      image
+ mutation Mutation($userId: ID!, $title: String!, $description: String, $ingredients: [String], $instructions: String) {
+  createRecipe(userId: $userId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
+    title
+    description
+    instructions
+    ingredients
+    author {
+      username
     }
+    createdAt
   }
+}
 `;
 
 const UPDATE_RECIPE = gql`
@@ -143,19 +129,52 @@ const Profile = () => {
     e.preventDefault();
     const { id, ...recipeInput } = formValues;
 
-    if (formType === "create") {
-      await createRecipe({ variables: { input: recipeInput } });
-    } else if (formType === "update") {
-      await updateRecipe({ variables: { id, input: recipeInput } });
+    console.log("Form values before submission:", recipeInput);
+    console.log("Form type:", formType);
+
+    try {
+      if (formType === "create") {
+        await createRecipe({
+          variables: {
+            userId: profile.user.id,
+            title: recipeInput.title,
+            description: recipeInput.description,
+            ingredients: recipeInput.ingredients,
+            instructions: recipeInput.instructions,
+          },
+        });
+      } else if (formType === "update") {
+        await updateRecipe({
+          variables: {
+            recipeId: id,
+            title: recipeInput.title,
+            description: recipeInput.description,
+            ingredients: recipeInput.ingredients,
+            instructions: recipeInput.instructions,
+          },
+        });
+      }
+      setIsFormOpen(false);
+      setFormValues({
+        title: "",
+        description: "",
+        ingredients: [""],
+        instructions: "",
+        id: null,
+      });
+    } catch (error) {
+      console.error("Error during mutation:", error);
+      if (error.networkError) {
+        console.error("Network error details:", error.networkError);
+      }
+      if (error.graphQLErrors) {
+        error.graphQLErrors.forEach(({ message, locations, path }) => {
+          console.error(
+            `GraphQL error details: Message: ${message}, Location: ${locations}, Path: ${path}`
+          );
+        });
+      }
     }
-    setIsFormOpen(false);
-    setFormValues({
-      title: "",
-      description: "",
-      ingredients: [""],
-      instructions: "",
-      id: null,
-    });
   };
 
   const handleOpenCreateForm = () => {
@@ -183,7 +202,7 @@ const Profile = () => {
   };
 
   const handleDelete = async (id) => {
-    await deleteRecipe({ variables: { id } });
+    await deleteRecipe({ variables: { recipeId: id } });
   };
 
   const renderSection = () => {
@@ -198,8 +217,12 @@ const Profile = () => {
               <li key={index}>{ingredient}</li>
             ))}
           </ul>
-          <button onClick={() => handleEdit(recipe)} className="UD-btn">Update</button>
-          <button onClick={() => handleDelete(recipe.id)} className="UD-btn">Delete</button>
+          <button onClick={() => handleEdit(recipe)} className="UD-btn">
+            Update
+          </button>
+          <button onClick={() => handleDelete(recipe.id)} className="UD-btn">
+            Delete
+          </button>
         </div>
       ));
     } else if (activeSection === "created" && profile) {
@@ -213,8 +236,12 @@ const Profile = () => {
               <li key={index}>{ingredient}</li>
             ))}
           </ul>
-          <button onClick={() => handleEdit(recipe)} className="UD-btn">Update</button>
-          <button onClick={() => handleDelete(recipe.id)} className="UD-btn">Delete</button>
+          <button onClick={() => handleEdit(recipe)} className="UD-btn">
+            Update
+          </button>
+          <button onClick={() => handleDelete(recipe.id)} className="UD-btn">
+            Delete
+          </button>
         </div>
       ));
     }
@@ -225,7 +252,7 @@ const Profile = () => {
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.error("Error loading profile:", error);
-    return <p>Error loading profile</p>;
+    return <p>Error loading profile: Must be logged in</p>;
   }
 
   return (
