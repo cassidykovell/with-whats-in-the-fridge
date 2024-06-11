@@ -1,7 +1,6 @@
 # with-whats-in-the-fridge
 
 
-
 ## Table of Contents
 [Description](#description)
 [Features](#features)
