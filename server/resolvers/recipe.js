@@ -63,20 +63,6 @@ const recipeResolvers = {
       }
       return true;
     },
-    saveRecipe: async (_, { userId, recipeId }) => {
-      const user = await User.findById(userId);
-      if (!user) throw new Error("User not found");
-
-      const recipe = await Recipe.findById(recipeId);
-      if (!recipe) throw new Error("Recipe not found");
-
-      if (!user.savedRecipes.includes(recipeId)) {
-        user.savedRecipes.push(recipeId);
-        await user.save();
-      }
-
-      return user;
-    },
   },
   Recipe: {
     author: async (parent) => {
