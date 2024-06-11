@@ -33,18 +33,30 @@ const GET_USER_PROFILE = gql`
 `;
 
 const CREATE_RECIPE = gql`
- mutation Mutation($userId: ID!, $title: String!, $description: String, $ingredients: [String], $instructions: String) {
-  createRecipe(userId: $userId, title: $title, description: $description, ingredients: $ingredients, instructions: $instructions) {
-    title
-    description
-    instructions
-    ingredients
-    author {
-      username
+  mutation Mutation(
+    $userId: ID!
+    $title: String!
+    $description: String
+    $ingredients: [String]
+    $instructions: String
+  ) {
+    createRecipe(
+      userId: $userId
+      title: $title
+      description: $description
+      ingredients: $ingredients
+      instructions: $instructions
+    ) {
+      title
+      description
+      instructions
+      ingredients
+      author {
+        username
+      }
+      createdAt
     }
-    createdAt
   }
-}
 `;
 
 const UPDATE_RECIPE = gql`
@@ -206,26 +218,7 @@ const Profile = () => {
   };
 
   const renderSection = () => {
-    if (activeSection === "saved" && profile) {
-      return profile.user.savedRecipes.map((recipe) => (
-        <div key={recipe.id} className="recipe-card">
-          <h3>{recipe.title}</h3>
-          {recipe?.image && <img src={recipe.image} alt={recipe.title} />}
-          <p>{recipe.instructions}</p>
-          <ul>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-          <button onClick={() => handleEdit(recipe)} className="UD-btn">
-            Update
-          </button>
-          <button onClick={() => handleDelete(recipe.id)} className="UD-btn">
-            Delete
-          </button>
-        </div>
-      ));
-    } else if (activeSection === "created" && profile) {
+    if (profile) {
       return profile.createdRecipes.map((recipe) => (
         <div key={recipe.id} className="recipe-card">
           <h3>{recipe.title}</h3>
@@ -264,28 +257,21 @@ const Profile = () => {
         </button>
       </div>
       <div className="profile-tabs">
-        <button
-          className={`tab-button ${activeSection === "saved" ? "active" : ""}`}
-          onClick={() => setActiveSection("saved")}
-        >
-          Saved Recipes
-        </button>
-        <button
-          className={`tab-button ${activeSection === "created" ? "active" : ""}`}
-          onClick={() => setActiveSection("created")}
-        >
-          Created Recipes
-        </button>
+        <h3 id="created-recipes">Created Recipes</h3>
       </div>
       <div className="profile-container">
-        <div className="profile-content">{renderSection()}</div>
+        <div className="profile-content recipe-container">
+          {renderSection()}
+        </div>
       </div>
       {isFormOpen && (
         <>
           <div className="backdrop" onClick={() => setIsFormOpen(false)}></div>
           <div className="form-popup">
             <form onSubmit={handleSubmit}>
-              <h2>{formType === "create" ? "Create Recipe" : "Update Recipe"}</h2>
+              <h2>
+                {formType === "create" ? "Create Recipe" : "Update Recipe"}
+              </h2>
               <label>
                 Title:
                 <input
@@ -312,10 +298,15 @@ const Profile = () => {
                     <input
                       type="text"
                       value={ingredient}
-                      onChange={(e) => handleIngredientChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleIngredientChange(index, e.target.value)
+                      }
                       required
                     />
-                    <button type="button" onClick={() => handleRemoveIngredient(index)}>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveIngredient(index)}
+                    >
                       Remove
                     </button>
                   </div>
