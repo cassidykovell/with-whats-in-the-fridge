@@ -271,6 +271,12 @@ border-radius: 20px;
   color: rgb(166, 135, 79);
 }
 
+.recipe-card {
+  border-radius: 20px;
+  color: rgb(166, 135, 79);
+  margin-top: 1em;
+}
+
 #log-btn:hover {
   background-color: rgb(166, 135, 79);
   color: rgb(213, 197, 161);
@@ -575,6 +581,30 @@ img {
   background-color: rgb(166, 135, 79);
   color: rgb(242, 222, 204);
 }
+
+.fix {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-right: 1em;
+}
+
+#generate-updated {
+  margin: 1em;
+  padding: 0.5em 3em 0.5em 3em;
+  border: 2px solid rgb(242, 222, 204);
+  border-radius: 20px;
+  background-color: rgb(166, 135, 79);
+  color: rgb(242, 222, 204);
+}
+
+#generate-updated:hover {
+  background-color: rgb(242, 222, 204);
+  color: rgb(166, 135, 79);
+}
+
 
 @media (max-width: 1056px) {
   .header {

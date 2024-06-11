@@ -277,6 +277,7 @@ const Profile = () => {
                 <input
                   type="text"
                   name="title"
+                  className="fix"
                   value={formValues.title}
                   onChange={handleInputChange}
                   required
@@ -286,6 +287,7 @@ const Profile = () => {
                 Description:
                 <textarea
                   name="description"
+                  className="fix"
                   value={formValues.description}
                   onChange={handleInputChange}
                   required
@@ -319,6 +321,7 @@ const Profile = () => {
                 Instructions:
                 <textarea
                   name="instructions"
+                  className="fix"
                   value={formValues.instructions}
                   onChange={handleInputChange}
                   required

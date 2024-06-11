@@ -38,7 +38,7 @@ const Feed = () => {
 					key={recipe.id}
 					className="recipe-card"
 					style={{
-						border: '1px solid #ccc',
+						border: '2px solid rgb(213, 197, 161)',
 						margin: '10px',
 						padding: '10px',
 						cursor: 'pointer',
