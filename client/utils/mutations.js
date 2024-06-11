@@ -56,3 +56,10 @@ mutation DeleteRecipe($recipeId: ID!) {
   deleteRecipe(recipeId: $recipeId)
 } 
 `
+export const SAVE_RECIPE = gql `
+mutation SaveRecipe($userId: ID!, $recipeId: ID!) {
+  saveRecipe(userId: $userId, recipeId: $recipeId) {
+    id
+  }
+}
+  `

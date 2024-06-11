@@ -61,7 +61,6 @@ const recipeResolvers = {
         );
         await user.save();
       }
-
       return true;
     },
   },
